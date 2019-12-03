@@ -26,34 +26,52 @@ namespace WindowsFormsApp3
         
         private void button1_Click(object sender, EventArgs e)
         {
-            var paket = groupBox1.Controls.OfType<RadioButton>()
-                                      .FirstOrDefault(r => r.Checked);
-            var taahut = groupBox2.Controls.OfType<RadioButton>()
-                                    .FirstOrDefault(r => r.Checked);
-            Musteri mstr = new Musteri();
-            mstr.musteri_ad = textBox1.Text;
-            mstr.musteri_adres = textBox2.Text;
-            mstr.musteri_tel = maskedTextBox1.Text;
-            mstr.musteri_paket = paket.Text;
-            mstr.musteri_mail = "testmail";
-            mstr.musteri_sifre = "testsifre";
+            try
+            {
+                var paket = groupBox1.Controls.OfType<RadioButton>()
+                                          .FirstOrDefault(r => r.Checked);
+                var taahut = groupBox2.Controls.OfType<RadioButton>()
+                                        .FirstOrDefault(r => r.Checked);
+                Musteri mstr = new Musteri();
+                mstr.musteri_ad = textBox1.Text;
+                mstr.musteri_adres = textBox2.Text;
+                mstr.musteri_tel = maskedTextBox1.Text;
+                mstr.musteri_paket = paket.Text;
+                mstr.musteri_mail = "testmail";
+                mstr.musteri_sifre = "testsifre";
 
-            OgrenciBLL bll = new OgrenciBLL();
-            bll.Musteri_Ekle(mstr);
+                OgrenciBLL bll = new OgrenciBLL();
+                bll.Musteri_Ekle(mstr);
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Müşteri Eklenirken Hata Oluştu");
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Helper hlpme = new Helper();
-            PaketBLL paketx = new PaketBLL();
-            comboBox1.DisplayMember = "paketadi";
-            comboBox2.ValueMember = "paketid";
-            comboBox1.DataSource = paketx.PaketListele();
+            try
+            {
+                Helper hlpme = new Helper();
+                PaketBLL paketx = new PaketBLL();
+                comboBox1.DisplayMember = "paketadi";
+                comboBox2.ValueMember = "paketid";
+                comboBox1.DataSource = paketx.PaketListele();
 
-            TaahutBLL taahutx = new TaahutBLL();
-            comboBox2.DisplayMember = "taahutbitis";
-            comboBox2.ValueMember = "taahutid";
-            comboBox2.DataSource = taahutx.TaahutListele();
+                TaahutBLL taahutx = new TaahutBLL();
+                comboBox2.DisplayMember = "taahutbitis";
+                comboBox2.ValueMember = "taahutid";
+                comboBox2.DataSource = taahutx.TaahutListele();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Taahütler ve Paketler Çekilemedi");
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -69,9 +87,9 @@ namespace WindowsFormsApp3
         }
         void Clean()
         {
-            foreach (var item in this.Controls)
+            foreach (TextBox item in this.Controls)
             {
-        
+                item.Text = String.Empty;
             }
         }
        

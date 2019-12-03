@@ -37,18 +37,26 @@ namespace WindowsFormsApp3
         }
         void Bul(int numara)
         {
-            MusteriBL mbl = new MusteriBL();
-            Musteri mstr;
-               
-
-           List<Musteri> mstrlist = mbl.MusteriListele(numara);
-
-            foreach (Musteri musteri in mstrlist)
+            try
             {
-                form1.textBox1.Text = musteri.musteri_ad;
-                form1.textBox2.Text = musteri.musteri_adres;
-                form1.maskedTextBox1.Text = musteri.musteri_tel;
+                MusteriBL mbl = new MusteriBL();
+                Musteri mstr;
+
+
+                List<Musteri> mstrlist = mbl.MusteriListele(numara);
+
+                foreach (Musteri musteri in mstrlist)
+                {
+                    form1.textBox1.Text = musteri.musteri_ad;
+                    form1.textBox2.Text = musteri.musteri_adres;
+                    form1.maskedTextBox1.Text = musteri.musteri_tel;
+                }
             }
+            catch (Exception)
+            {
+                MessageBox.Show("MÜŞTERİ BULUNAMADI");
+            }
+       
 
         
 

@@ -21,22 +21,32 @@ namespace WindowsFormsApp3
 
         private void Musteriler_Load(object sender, EventArgs e)
         {
-            Helper hlp = new Helper();
-           
-                
-                    using (SqlDataReader dr = hlp.ExecuteReader("SELECT * from ttnetTablo", null))
+            try
+            {
+                Helper hlp = new Helper();
+
+
+                using (SqlDataReader dr = hlp.ExecuteReader("SELECT * from ttnetTablo", null))
+                {
+                    while (dr.Read())
                     {
-                        while (dr.Read())
-                        {
                         listBox1.Items.Add(dr[1].ToString());
                         listBox2.Items.Add(dr[2].ToString());
                         listBox3.Items.Add(dr[3].ToString());
                         listBox4.Items.Add(dr[4].ToString());
                         listBox5.Items.Add(dr[5].ToString());
-                     }
                     }
+                }
 
-            hlp.Dispose();
+                hlp.Dispose();
+
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Müşteri Çekiminde Hata Var.");
+            }
+
             
 
         }
